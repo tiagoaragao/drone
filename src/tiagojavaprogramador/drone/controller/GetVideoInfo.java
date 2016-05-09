@@ -1,6 +1,6 @@
 package tiagojavaprogramador.drone.controller;
 
-import tiagojavaprogramador.drone.command.Cmd;
+import tiagojavaprogramador.drone.command.CommandDownload;
 import tiagojavaprogramador.drone.model.Video;
 
 /**  @author Tiago Alexandre Soares Aragão 
@@ -16,7 +16,7 @@ public class GetVideoInfo {
         this.url = url;      
     }
 
-    Cmd cmd;    
+    CommandDownload cmd;    
     Video video;
     
     

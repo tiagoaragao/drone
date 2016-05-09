@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * @author Tiago Alexandre Soares Aragão - tiagojavaprogramador@gmail.com -
  * http://tiagojavaprogramador.blogspot.com
  */
-public class Cmd {
+public class CommandDownload {
 
     private String resposta = "response";
     private String comando = "command";

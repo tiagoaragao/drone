@@ -3,7 +3,5 @@ package tiagojavaprogramador.drone.adapter;
 
 public class AdapterJTable {
 
-    public static void main(String[] args){
-        
-    }
+  
 }
