@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
  */
 public class Cmd {
 
-    private String resposta = "";
-    private String comando = "";
-    private String line;
+    private String resposta = "response";
+    private String comando = "command";
+    private String line = "line_response";
 
     public String comandosDownload(String comandos) {
         this.comando = comandos;
@@ -21,12 +21,12 @@ public class Cmd {
             @Override
             public void run() {
                 try {
-                    
+
                     ProcessBuilder builders = new ProcessBuilder("cmd.exe", "/c", comando);
                     builders.redirectErrorStream(true);
                     Process z = builders.start();
                     BufferedReader rs = new BufferedReader(new InputStreamReader(z.getInputStream()));
-                 
+
                     String multipleLine = "";
                     boolean tentativas = false;
                     while (true) {
@@ -45,8 +45,8 @@ public class Cmd {
 
                             if (line.equals("100")) {
                                 resposta = "type_percent=Download concluido!";
-                            }else{
-                                 resposta = "type_percent=" + line;
+                            } else {
+                                resposta = "type_percent=" + line;
                             }
                         }
 
@@ -55,9 +55,9 @@ public class Cmd {
                         }
                     }
                 } catch (IOException e) {
-                    resposta = "type_error=";
+                    resposta = "type_error=Erro na entrada de dados, consulte o desenvolverdor do sistema!";
                 } catch (NullPointerException e) {
-                    resposta = "type_error=";
+                    resposta = "type_error=Erro, não houve resposta do servidor, ou não há conteudo a ser mostrado!";
                 }
             }
         });
