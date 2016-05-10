@@ -1,8 +1,12 @@
 package tiagojavaprogramador.drone.view;
 
-import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
+
+import tiagojavaprogramador.drone.adapter.AdapterJTable;
 import tiagojavaprogramador.drone.controller.GetVideoInformation;
 import tiagojavaprogramador.drone.controller.GetVideoPercentDownload;
+import tiagojavaprogramador.drone.model.Video;
 
 /**
  * @author Tiago Alexandre Soares Aragão - tiagojavaprogramador@gmail.com -
@@ -11,23 +15,15 @@ import tiagojavaprogramador.drone.controller.GetVideoPercentDownload;
 public class MainView extends javax.swing.JFrame {
 
     private GetVideoPercentDownload d;
-     DefaultTableModel model;
+    private AdapterJTable model;
+    List<Video>  init = new ArrayList<Video>();
 
     public MainView() {
-       
 
-    model = new DefaultTableModel(
-                  new Object[][]{                    
-                      
-                  },
-                  new String[]{
-                      "Titulo", "Imagem", "Botao download", "Progress"
-                  }
-        );
-    
-      initComponents();
-    tabela.setModel(model);
-   
+        initComponents();
+        model = new AdapterJTable(init);
+        tabela.setModel(model);     
+        tabela.setRowHeight(120);
 
     }
 
@@ -41,6 +37,7 @@ public class MainView extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JEditorPane();
         label = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         fundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,7 +52,6 @@ public class MainView extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, -1, -1));
 
-        tabela.setModel(model);
         jScrollPane1.setViewportView(tabela);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 910, 270));
@@ -70,6 +66,14 @@ public class MainView extends javax.swing.JFrame {
         label.setText("jLabel1");
         getContentPane().add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 24, 390, 20));
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+
         fundo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tiagojavaprogramador/drone/img/fundo.png"))); // NOI18N
         fundo.setText("Aguarde");
@@ -83,10 +87,14 @@ public class MainView extends javax.swing.JFrame {
         d = new GetVideoPercentDownload("https://www.youtube.com/watch?v=h_k5GW_eKR0", label);
         d.tw.start();
 
-        GetVideoInformation g = new GetVideoInformation("https://www.youtube.com/watch?v=h_k5GW_eKR0", model, tabela,textArea);
+        GetVideoInformation g = new GetVideoInformation("https://www.youtube.com/watch?v=h_k5GW_eKR0", model, tabela, textArea);
         g.comandosInfo();
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        model.onAddAll(getListaVideo());        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
 
@@ -117,11 +125,30 @@ public class MainView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JLabel fundo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label;
     private javax.swing.JTable tabela;
     private javax.swing.JEditorPane textArea;
     // End of variables declaration//GEN-END:variables
+private List<Video> getListaVideo() {
+    
+        List<Video> video = new ArrayList<Video>();
+
+        Video vi = new Video();
+        vi.setDescVideo("Jack");
+        vi.setIdVideo("wqwqwq");
+        vi.setLinkDownVideo("eeeeeeeeee");
+        vi.setLinkVideo("ddddddddd");
+        vi.setUrlImage("ddddddddd");
+
+       
+        video.add(vi);
+
+        return video;
+    }
+
+ 
 
 }

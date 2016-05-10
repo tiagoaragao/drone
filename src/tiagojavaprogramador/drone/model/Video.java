@@ -1,4 +1,7 @@
 package tiagojavaprogramador.drone.model;
+
+import java.util.List;
+
 /**  @author Tiago Alexandre Soares Aragão - tiagojavaprogramador@gmail.com - http://tiagojavaprogramador.blogspot.com */
 
 public class Video {
@@ -8,6 +11,16 @@ public class Video {
    private String linkVideo;
    private String linkDownVideo;
    private String urlImage;
+
+
+    public Video() {
+        this.idVideo = "";
+        this.descVideo = "";
+        this.linkVideo = "";
+        this.linkDownVideo = "";
+        this.urlImage = "";
+       
+    } 
 
     public String getIdVideo() {
         return idVideo;

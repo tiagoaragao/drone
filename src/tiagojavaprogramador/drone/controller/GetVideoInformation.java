@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.text.html.HTMLEditorKit;
@@ -17,6 +18,7 @@ import javax.swing.text.html.StyleSheet;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import tiagojavaprogramador.drone.adapter.AdapterJTable;
 
 /**
  * @author Tiago Alexandre Soares Aragão - tiagojavaprogramador@gmail.com -
@@ -32,12 +34,12 @@ public class GetVideoInformation {
 
     Process z;
     BufferedReader rs;
-    DefaultTableModel model;
+    AdapterJTable  model;
     JTable tabela;
     JEditorPane textArea;
     String comando;
 
-    public GetVideoInformation(String comando, DefaultTableModel model, JTable tabela, JEditorPane textArea) {
+    public GetVideoInformation(String comando, AdapterJTable  model, JTable tabela, JEditorPane textArea) {
         this.model = model;
         this.tabela = tabela;
         this.textArea = textArea;
@@ -124,9 +126,10 @@ public class GetVideoInformation {
                         
                      
 
-                        model.addRow(new Object[]{textArea});
+                       // model.setValueAt(new Object[]{textArea},0,0);
 
                         tabela.scrollRectToVisible(tabela.getCellRect(tabela.getRowCount() - 1, 0, true));
+                     
 
                     } catch (Exception ex) {
 
