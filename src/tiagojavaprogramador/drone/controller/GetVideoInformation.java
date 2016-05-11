@@ -21,10 +21,11 @@ import javax.swing.text.html.StyleSheet;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import tiagojavaprogramador.drone.adapter.TableModel;
+import tiagojavaprogramador.drone.model.TableModel;
 
 import tiagojavaprogramador.drone.model.Video;
 import tiagojavaprogramador.drone.model.VideoPanel;
+import tiagojavaprogramador.drone.string.PtBr;
 
 /**
  * @author Tiago Alexandre Soares Aragão - tiagojavaprogramador@gmail.com -
@@ -34,7 +35,7 @@ public class GetVideoInformation {
 
     private String idVideo;
     private String resposta;
-    String path;
+
     ProcessBuilder builders;
     List list;
 
@@ -48,49 +49,48 @@ public class GetVideoInformation {
     java.util.List<Video> video;
     Video vi;
     java.util.List<Video> init = new ArrayList<Video>();
+    ArrayList feeds;
 
-    public GetVideoInformation(String comando, TableModel model, JTable tabela, JEditorPane textArea) {
+    public GetVideoInformation(String comando, TableModel model, JTable tabela) {
         this.model = model;
         this.tabela = tabela;
         this.textArea = textArea;
         this.comando = comando;
+
     }
 
     public java.util.List<Video> comandosInfo() {
 
         idVideo = comando.substring(comando.indexOf("=") + 1, comando.length());
-        video = new ArrayList<Video>();
-        vi = new Video("","","","","");
-        try {
 
-            path = "" + javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory() + "/MyVideos";
-            path = path.replace("/", "\\");
+        try {
 
             builders = null;
             z = null;
 
-            builders = new ProcessBuilder("cmd.exe", "/c", "drone.exe --dump-single-json " + comando + " > " + path + "\\temp\\" + idVideo + ".json");
+            builders = new ProcessBuilder("cmd.exe", "/c", "drone.exe --dump-single-json " + comando + " > " + PtBr.getPATH() + "\\temp\\" + idVideo + ".json");
             builders.redirectErrorStream(true);
             z = builders.start();
             rs = new BufferedReader(new InputStreamReader(z.getInputStream()));
             String line = "";
 
             while (true) {
+                System.out.println("Iniciando while.... ");
                 line = rs.readLine();
 
-                tabela.repaint();
+                feeds = null;
 
                 resposta = line;
 
                 if (line == null) {
 
                     try {
-                        System.out.println("Finalizou.... ");
+                        System.out.println("wait while.... ");
                         JSONParser parser = new JSONParser();
 
-                        path = "" + javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory() + "/MyVideos";
-                        path = path.replace("/", "\\");
-                        Object obj = parser.parse(new FileReader(path + "\\" + "temp\\" + idVideo + ".json"));
+                        System.out.println("Iniciando file reader.... " + PtBr.getPATH() + "\\" + "temp\\" + idVideo + ".json");
+                        Object obj = parser.parse(new FileReader(PtBr.getPATH() + "\\" + "temp\\" + idVideo + ".json"));
+                        System.out.println("Passou pelo file reader.... " + PtBr.getPATH());
                         JSONObject jsonObject = (JSONObject) obj;
 
                         String linkDownload = (String) jsonObject.get("url");
@@ -112,39 +112,22 @@ public class GetVideoInformation {
                                   + "</head>"
                                   + "<body>"
                                   + "<span class='titulo'>" + title + "<br>" + "</span>"
+                                  + "<span class='time'>" + duracao + "<br>" + "</span>"
                                   + "</body>"
                                   + "</html>";
 
-                        video = new ArrayList<Video>();
+                        feeds = new ArrayList();
+                        
+                        Video v = new Video();
+                        
+                        v.setDescVideo(webContent);
+                        v.setUrlImage(""+jsonObject2.get("url"));
+                        v.setLinkDownVideo("teste");
 
-                        Video vi = new Video("","","","","");
-                        vi.setDescVideo(title);
-                        vi.setIdVideo(linkDownload);
-                        vi.setLinkDownVideo(linkDownload);
-                        vi.setLinkVideo(linkDownload);
-                        // vi.setUrlImage(linkDownload);
+                        feeds.add(v);
 
-                        video.add(vi);
+                        model.onAddAll(feeds);
 
-                        textArea.setText(textArea.getText() + webContent);
-
-                        textArea.enable(false);
-
-                        /////////////////////////////////////////
-                        StyleSheet styleSheet = new StyleSheet();
-                        styleSheet.addRule("body { margin:0;}");
-                        styleSheet.addRule(".titulo {font-size: 16pt; color: gray;  width :100px;    text-overflow:    ellipsis; overflow: hidden;   font-weight: bold; }");
-                        styleSheet.addRule(".like {font-size: 14pt; color: gray;   width :100px;  text-overflow:    ellipsis; overflow: hidden;}");
-
-                        styleSheet.addRule(".time {font-size: 13pt; color: gray;  width :100px;   text-overflow:    ellipsis; overflow: hidden; }");
-
-                        HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-                        htmlEditorKit.setStyleSheet(styleSheet);
-
-                        textArea.setEditorKit(htmlEditorKit);
-                        textArea.setText(webContent);
-
-                        // model.setValueAt(new Object[]{textArea},0,0);
                         tabela.scrollRectToVisible(tabela.getCellRect(tabela.getRowCount() - 1, 0, true));
 
                     } catch (Exception ex) {
@@ -166,34 +149,24 @@ public class GetVideoInformation {
 
         } catch (IOException e) {
 
-            JOptionPane.showMessageDialog(null, "" + e.getCause().getMessage(), "Erro MAINxNPEx0013", 0);
-            textArea.setText("");
+            JOptionPane.showMessageDialog(null, "" + e, "Erro MAINxNPEx0013", 0);
+            // textArea.setText("");
 
         } catch (NullPointerException e) {
-
+            JOptionPane.showMessageDialog(null, "" + e, "Erro MAINxNPEx0013", 0);
+            System.out.println("" + e);
         }
 
         try {
 
-            builders = new ProcessBuilder("cmd.exe", "/c", "del  " + path + "\\temp\\" + "*.json");
+            builders = new ProcessBuilder("cmd.exe", "/c", "del  " + PtBr.getPATH() + "\\temp\\" + "*.json");
             z = builders.start();
 
         } catch (Exception ex) {
 
         }
-
-        model = new TableModel(video);
-        tabela.setModel(model);
-
-        VideoPanel panel = new VideoPanel();
-        
-        panel.setBounds(0,0,200,70);
-
-        model.setValueAt(panel, 0, 0);
-        
-        
-
-        return video;
+        System.out.println("Retornou dados");
+        return feeds;
 
     }
 

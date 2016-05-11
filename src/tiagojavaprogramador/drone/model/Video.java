@@ -12,7 +12,7 @@ public class Video {
    private String linkDownVideo;
    private String urlImage;
 
-    public Video(String idVideo, String descVideo, String linkVideo, String linkDownVideo, String urlImage) {
+    public Video() {
         this.idVideo = idVideo;
         this.descVideo = descVideo;
         this.linkVideo = linkVideo;
@@ -20,7 +20,7 @@ public class Video {
         this.urlImage = urlImage;
     }
 
-
+//String idVideo, String descVideo, String linkVideo, String linkDownVideo, String urlImage
   
 
     public String getIdVideo() {

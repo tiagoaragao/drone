@@ -1,4 +1,4 @@
-package tiagojavaprogramador.drone.adapter;
+package tiagojavaprogramador.drone.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -55,7 +55,7 @@ public class TableModel extends DefaultTableModel implements Serializable {
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
 
-       // System.out.println("Editando = linha: " + rowIndex + " - Coluna: " + columnIndex);
+       // .out.println("Editando = linha: " + rowIndex + " - Coluna: " + columnIndex);
         return columnIndex < 2;
     }
      
