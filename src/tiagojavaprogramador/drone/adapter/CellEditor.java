@@ -12,16 +12,16 @@ import tiagojavaprogramador.drone.model.VideoPanel;
  * http://tiagojavaprogramador.blogspot.com */
 
 public class CellEditor extends AbstractCellEditor implements TableCellEditor {
-  VideoPanel feedComponent;
+  VideoPanel panelVideoComponent;
  
   public CellEditor() {
-    feedComponent = new VideoPanel();
+    panelVideoComponent = new VideoPanel();
   }
  
   public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-    Video feed = (Video)value;
-    feedComponent.updateData(feed);
-    return feedComponent;
+    Video panelVideo = (Video)value;
+    panelVideoComponent.updateData(panelVideo);
+    return panelVideoComponent;
   }
  
   public Object getCellEditorValue() {

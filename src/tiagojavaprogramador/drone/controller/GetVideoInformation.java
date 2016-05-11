@@ -49,7 +49,7 @@ public class GetVideoInformation {
     java.util.List<Video> video;
     Video vi;
     java.util.List<Video> init = new ArrayList<Video>();
-    ArrayList feeds;
+    ArrayList contentVideo;
 
     public GetVideoInformation(String comando, TableModel model, JTable tabela) {
         this.model = model;
@@ -78,7 +78,7 @@ public class GetVideoInformation {
                 System.out.println("Iniciando while.... ");
                 line = rs.readLine();
 
-                feeds = null;
+                contentVideo = null;
 
                 resposta = line;
 
@@ -116,7 +116,7 @@ public class GetVideoInformation {
                                   + "</body>"
                                   + "</html>";
 
-                        feeds = new ArrayList();
+                        contentVideo = new ArrayList();
                         
                         Video v = new Video();
                         
@@ -124,9 +124,9 @@ public class GetVideoInformation {
                         v.setUrlImage(""+jsonObject2.get("url"));
                         v.setLinkDownVideo("teste");
 
-                        feeds.add(v);
+                        contentVideo.add(v);
 
-                        model.onAddAll(feeds);
+                        model.onAddAll(contentVideo);
 
                         tabela.scrollRectToVisible(tabela.getCellRect(tabela.getRowCount() - 1, 0, true));
 
@@ -166,7 +166,7 @@ public class GetVideoInformation {
 
         }
         System.out.println("Retornou dados");
-        return feeds;
+        return contentVideo;
 
     }
 

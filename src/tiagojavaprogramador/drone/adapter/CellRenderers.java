@@ -13,7 +13,7 @@ import tiagojavaprogramador.drone.model.VideoPanel;
 public class CellRenderers implements TableCellRenderer {
 
     VideoPanel videoPanel;
-    Video feed;
+    Video contentVideo;
     Video value;
 
     public CellRenderers() {
@@ -22,12 +22,10 @@ public class CellRenderers implements TableCellRenderer {
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
-        
-     
-            this.feed = (Video)value;
-           
-            videoPanel.updateData(feed);
-      
-         return videoPanel;
+        this.contentVideo = (Video) value;
+
+        videoPanel.updateData(contentVideo);
+
+        return videoPanel;
     }
 }

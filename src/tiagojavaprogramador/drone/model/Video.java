@@ -2,26 +2,26 @@ package tiagojavaprogramador.drone.model;
 
 import java.util.List;
 
-/**  @author Tiago Alexandre Soares Aragão - tiagojavaprogramador@gmail.com - http://tiagojavaprogramador.blogspot.com */
-
+/**
+ * @author Tiago Alexandre Soares Aragão - tiagojavaprogramador@gmail.com -
+ * http://tiagojavaprogramador.blogspot.com
+ */
 public class Video {
 
-   private String idVideo;
-   private String descVideo;
-   private String linkVideo;
-   private String linkDownVideo;
-   private String urlImage;
+    private String idVideo;
+    private String descVideo;
+    private String linkVideo;
+    private String linkDownVideo;
+    private String urlImage;
 
     public Video() {
-        this.idVideo = idVideo;
-        this.descVideo = descVideo;
-        this.linkVideo = linkVideo;
-        this.linkDownVideo = linkDownVideo;
-        this.urlImage = urlImage;
+        this.idVideo = "";
+        this.descVideo = "";
+        this.linkVideo = "";
+        this.linkDownVideo = "";
+        this.urlImage = "";
     }
 
-//String idVideo, String descVideo, String linkVideo, String linkDownVideo, String urlImage
-  
 
     public String getIdVideo() {
         return idVideo;
@@ -62,6 +62,5 @@ public class Video {
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
     }
-   
-   
+
 }

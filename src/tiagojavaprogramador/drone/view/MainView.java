@@ -34,15 +34,15 @@ public class MainView extends javax.swing.JFrame {
 
     private TableModel model;
 
-    List feeds;
+    List contentVideo;
     private String[] columnNames = {};
     private Object[] data = {};
     private JScrollPane scrollPane;
 
     public MainView() {
 
-        feeds = new ArrayList();
-        model = new TableModel(feeds);
+        contentVideo = new ArrayList();
+        model = new TableModel(contentVideo);
 
         initComponents();
 

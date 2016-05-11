@@ -14,7 +14,7 @@ import tiagojavaprogramador.drone.controller.LoadImage;
 public class VideoPanel extends JPanel {
 
     String titulo;
-    Video feed;
+    Video contentVideo;
 
     public VideoPanel() {
         initComponents();
@@ -31,7 +31,7 @@ public class VideoPanel extends JPanel {
         btDeletar.setFocusPainted(false);
         btDeletar.setOpaque(false);
         
-        feed = null;
+        contentVideo = null;
 
     }
 
@@ -79,7 +79,7 @@ public class VideoPanel extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDownloadActionPerformed
-        JOptionPane.showMessageDialog(null, feed.getIdVideo());
+        JOptionPane.showMessageDialog(null, contentVideo.getIdVideo());
         System.out.println(evt.getActionCommand());
         evt.getActionCommand();
     }//GEN-LAST:event_btDownloadActionPerformed
@@ -94,7 +94,7 @@ public class VideoPanel extends JPanel {
     private javax.swing.JProgressBar pbProgresso;
     // End of variables declaration//GEN-END:variables
 
-    public void updateData(Video feed) {
+    public void updateData(Video contentVideo) {
 
         StyleSheet styleSheet = new StyleSheet();
         styleSheet.addRule("body { margin:0;}");
@@ -108,16 +108,16 @@ public class VideoPanel extends JPanel {
 
         epTitle.setEditorKit(htmlEditorKit);
 
-        this.feed = feed;        
+        this.contentVideo = contentVideo;        
         
-        new LoadImage().geraImageView(lbImagem, feed.getUrlImage());
+        new LoadImage().geraImageView(lbImagem, contentVideo.getUrlImage());
      
 
-        epTitle.setText(feed.getDescVideo());
+        epTitle.setText(contentVideo.getDescVideo());
 
         lbImagem.repaint();
 
-        btDownload.setActionCommand(feed.getLinkVideo());
+        btDownload.setActionCommand(contentVideo.getLinkVideo());
 
     }
 
