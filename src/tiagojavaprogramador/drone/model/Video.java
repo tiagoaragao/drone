@@ -12,15 +12,16 @@ public class Video {
    private String linkDownVideo;
    private String urlImage;
 
+    public Video(String idVideo, String descVideo, String linkVideo, String linkDownVideo, String urlImage) {
+        this.idVideo = idVideo;
+        this.descVideo = descVideo;
+        this.linkVideo = linkVideo;
+        this.linkDownVideo = linkDownVideo;
+        this.urlImage = urlImage;
+    }
 
-    public Video() {
-        this.idVideo = "";
-        this.descVideo = "";
-        this.linkVideo = "";
-        this.linkDownVideo = "";
-        this.urlImage = "";
-       
-    } 
+
+  
 
     public String getIdVideo() {
         return idVideo;

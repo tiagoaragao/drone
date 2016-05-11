@@ -5,9 +5,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -18,7 +21,10 @@ import javax.swing.text.html.StyleSheet;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import tiagojavaprogramador.drone.adapter.AdapterJTable;
+import tiagojavaprogramador.drone.adapter.TableModel;
+
+import tiagojavaprogramador.drone.model.Video;
+import tiagojavaprogramador.drone.model.VideoPanel;
 
 /**
  * @author Tiago Alexandre Soares Aragão - tiagojavaprogramador@gmail.com -
@@ -34,22 +40,27 @@ public class GetVideoInformation {
 
     Process z;
     BufferedReader rs;
-    AdapterJTable  model;
+    TableModel model;
     JTable tabela;
     JEditorPane textArea;
     String comando;
 
-    public GetVideoInformation(String comando, AdapterJTable  model, JTable tabela, JEditorPane textArea) {
+    java.util.List<Video> video;
+    Video vi;
+    java.util.List<Video> init = new ArrayList<Video>();
+
+    public GetVideoInformation(String comando, TableModel model, JTable tabela, JEditorPane textArea) {
         this.model = model;
         this.tabela = tabela;
         this.textArea = textArea;
         this.comando = comando;
     }
 
-    public String comandosInfo() {
+    public java.util.List<Video> comandosInfo() {
 
         idVideo = comando.substring(comando.indexOf("=") + 1, comando.length());
-
+        video = new ArrayList<Video>();
+        vi = new Video("","","","","");
         try {
 
             path = "" + javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory() + "/MyVideos";
@@ -104,9 +115,18 @@ public class GetVideoInformation {
                                   + "</body>"
                                   + "</html>";
 
-                        textArea.setText(textArea.getText() + webContent);
+                        video = new ArrayList<Video>();
 
-                        TableColumn col = new TableColumn(1, 80);
+                        Video vi = new Video("","","","","");
+                        vi.setDescVideo(title);
+                        vi.setIdVideo(linkDownload);
+                        vi.setLinkDownVideo(linkDownload);
+                        vi.setLinkVideo(linkDownload);
+                        // vi.setUrlImage(linkDownload);
+
+                        video.add(vi);
+
+                        textArea.setText(textArea.getText() + webContent);
 
                         textArea.enable(false);
 
@@ -123,13 +143,9 @@ public class GetVideoInformation {
 
                         textArea.setEditorKit(htmlEditorKit);
                         textArea.setText(webContent);
-                        
-                     
 
-                       // model.setValueAt(new Object[]{textArea},0,0);
-
+                        // model.setValueAt(new Object[]{textArea},0,0);
                         tabela.scrollRectToVisible(tabela.getCellRect(tabela.getRowCount() - 1, 0, true));
-                     
 
                     } catch (Exception ex) {
 
@@ -166,6 +182,19 @@ public class GetVideoInformation {
 
         }
 
-        return resposta;
+        model = new TableModel(video);
+        tabela.setModel(model);
+
+        VideoPanel panel = new VideoPanel();
+        
+        panel.setBounds(0,0,200,70);
+
+        model.setValueAt(panel, 0, 0);
+        
+        
+
+        return video;
+
     }
+
 }
